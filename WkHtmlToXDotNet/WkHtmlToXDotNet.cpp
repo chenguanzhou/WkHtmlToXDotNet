@@ -50,25 +50,20 @@ array<Byte>^ WkHtmlToXDotNet::HtmlToXConverter::ConvertToPdf(String^ html)
 	return resultBuffer;
 }
 
-array<Byte>^ WkHtmlToXDotNet::HtmlToXConverter::ConvertToPng(String^ html)
-{
-	return ConvertToPng(html, 0, 0);
-}
-
-array<Byte>^ WkHtmlToXDotNet::HtmlToXConverter::ConvertToPng(String^ html, int width, int height)
+array<Byte>^ WkHtmlToXDotNet::HtmlToXConverter::ConvertToImage(String^ html, ImageFormat format, int width, int height)
 {
 	wkhtmltoimage_global_settings * gs;
 	wkhtmltoimage_converter * c;
 	unsigned char * data;
 
 	gs = wkhtmltoimage_create_global_settings();
-	wkhtmltoimage_set_global_setting(gs, "fmt", "png");
+	wkhtmltoimage_set_global_setting(gs, "fmt", format == ImageFormat::JPEG ? "jpg" : format == ImageFormat::BMP ? "bmp" : format == ImageFormat::PNG ? "png" : format == ImageFormat::SVG ? "svg" : "");
 	c = wkhtmltoimage_create_converter(gs, DotNetStringToCharPointer(html));
 
-	if (width != 0) {
+	if (width > 0) {
 		wkhtmltoimage_set_global_setting(gs, "screenWidth", DotNetStringToCharPointer(width.ToString()));
 	}
-	if (height != 0) {
+	if (height > 0) {
 		wkhtmltoimage_set_global_setting(gs, "screenHeight", DotNetStringToCharPointer(height.ToString()));
 	}
 

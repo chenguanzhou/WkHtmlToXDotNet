@@ -17,8 +17,13 @@ namespace WkHtmlToXDotNet {
 	public:
 		static array<System::Byte>^ ConvertToPdf(System::String^ html);
 
-		static array<System::Byte>^ ConvertToPng(System::String^ html);
-
-		static array<System::Byte>^ ConvertToPng(System::String^ html, int width, int height);
+		enum class ImageFormat
+		{
+			JPEG,
+			PNG,
+			BMP,
+			SVG
+		};
+		static array<System::Byte>^ ConvertToImage(System::String^ html, ImageFormat format, int width, int height);
 	};
 }

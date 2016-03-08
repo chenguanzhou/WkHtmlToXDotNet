@@ -33,26 +33,26 @@ namespace TimmysExampleConsoleApp
 </html>
 ";
 
-			var pdfData = HtmlToXConverter.ConvertToPdf(fullHtml);
+            var pdfData = HtmlToXConverter.ConvertToPdf(fullHtml);
 
-			if (pdfData == null)
-			{
-				Console.WriteLine("The conversion failed for some reason :'(");
-			}
-			else
-			{
-				Console.WriteLine("Youre PDF is {0} bytes in size!", fullHtml.Length);
+            if (pdfData == null)
+            {
+                Console.WriteLine("The conversion failed for some reason :'(");
+            }
+            else
+            {
+                Console.WriteLine("Youre PDF is {0} bytes in size!", fullHtml.Length);
 
-				Console.WriteLine("Press [ENTER] to view the PDF");
+                Console.WriteLine("Press [ENTER] to view the PDF");
 
-				Console.ReadLine();
+                Console.ReadLine();
 
-				string tempPdfFile = Path.GetTempFileName() + ".pdf";
+                string tempPdfFile = Path.GetTempFileName() + ".pdf";
 
-				File.WriteAllBytes(tempPdfFile, pdfData);
+                File.WriteAllBytes(tempPdfFile, pdfData);
 
-				Process.Start(tempPdfFile);
-			}
+                Process.Start(tempPdfFile);
+            }
 		}
 	}
 }
